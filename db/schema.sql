@@ -14,7 +14,7 @@ CREATE TABLE `user_info` (
   `cell_phone` char(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `mailing_address` varchar(250) NOT NULL,
-  `personal_image` blob,
+  `personal_image` mediumblob, -- 16MB appx.
   `version` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `national_id_UQ` (`national_id`),

@@ -16,8 +16,18 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
 			+ "SET personal_image = :personalImage "
 			+ "WHERE national_id = :nationalId", 
 			nativeQuery = true)
-	public void updatePersonalImage(@Param("personalImage") byte[] personalImage, @Param("nationalId") String nationalId);
+	public int updatePersonalImage(@Param(value = "nationalId") String nationalId, @Param(value = "personalImage") byte[] personalImage);
 	
-	public byte[] findPersonalImageByNationalId(String nationalId);
+	@Query(value = "SELECT personal_image "
+			+ "FROM user_info "
+			+ "WHERE national_id = :nationalId", 
+			nativeQuery = true)
+	public byte[] loadPersonalImageAsRawData(@Param(value = "nationalId") String nationalId);
+	
+	@Query(value = "SELECT name, national_id, cell_phone, email, mailing_address "
+			+ "FROM user_info "
+			+ "WHERE national_id = :nationalId", 
+			nativeQuery = true)
+	public Object[] loadUserInfoAsRawData(@Param(value = "nationalId") String nationalId);
 	
 }

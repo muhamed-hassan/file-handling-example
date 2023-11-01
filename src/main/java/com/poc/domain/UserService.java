@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poc.persistence.entities.UserInfo;
 import com.poc.persistence.repositories.UserInfoRepository;
+import com.poc.web.error_handler.exceptions.NoDataFoundException;
 
 @Service
 public class UserService {
@@ -20,20 +21,45 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void addPersonalImageOfUser() {
+	public void addPersonalImageOfUser(String nationalId, byte[] personalImage) {
 		
-		// updateModel should hold the below:
-		//   nationalId: String
-		//   personalImage: byte[]
+		int affectedRecords = userInfoRepository.updatePersonalImage(nationalId, personalImage);
 		
-		//userInfoRepository.updatePersonalImage(personalImage, nationalId);
+		
+		System.out.println(">>> " + affectedRecords);
 	}
 	
-	public byte[] getPersonalImageByNationalId(String nationalId) {
+	public byte[] getPersonalImage(String nationalId) {
 		
-		byte[] personalImage = userInfoRepository.findPersonalImageByNationalId(nationalId);
+		byte[] personalImage = null;
+		try {
+			personalImage = userInfoRepository.loadPersonalImageAsRawData(nationalId);
+		} catch (Exception e) {
+			System.out.println("\n>>>>>>>>>>>>>>>>>>>");
+			e.printStackTrace();
+			System.out.println(">>>>>>>>>>>>>>>>>>>\n");
+		}
 		
 		return personalImage;
+	}
+	
+	public UserInfo getUser(String nationalId) {
+		
+		Object[] rawData = userInfoRepository.loadUserInfoAsRawData(nationalId);
+		if (rawData == null) {
+			throw new NoDataFoundException();
+		}			
+		
+		// name, national_id, cell_phone, email, mailing_address
+		UserInfo userInfo = new UserInfo();
+		userInfo.setName((String) rawData[0]);
+		userInfo.setNationalId((String) rawData[1]);				
+		userInfo.setCellPhone((String) rawData[2]);
+		userInfo.setEmail((String) rawData[3]);
+		userInfo.setMailingAddress((String) rawData[4]);
+		
+		
+		return userInfo;
 	}
 
 }
