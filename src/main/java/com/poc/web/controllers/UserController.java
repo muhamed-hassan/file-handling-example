@@ -35,7 +35,7 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> createUser(@RequestBody UserInfoCreateModel userInfoCreateModel) throws ParseException {
-		
+				
 		validator.validate(userInfoCreateModel);	
 		
 		UserInfo userInfo = new UserInfo();
@@ -80,8 +80,10 @@ public class UserController {
 		userInfoReadModel.setEmail(userInfo.getEmail());
 		userInfoReadModel.setMailingAddress(userInfo.getMailingAddress());
 		
-		// Check UserController::downloadImage() to know how the below embedded URL is called
-		userInfoReadModel.setFileUrl("http://localhost:8080/v1/users/" + userInfo.getNationalId() + "/images");
+		if (userInfo.getPersonalImage() != null) {
+			// Check UserController::downloadImage() to know how the below embedded URL is called
+			userInfoReadModel.setFileUrl("http://localhost:8080/v1/users/" + userInfo.getNationalId() + "/images");
+		}		
 		
 		return new ResponseEntity<UserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
 	}

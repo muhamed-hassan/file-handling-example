@@ -28,6 +28,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
 			+ "FROM user_info "
 			+ "WHERE national_id = :nationalId", 
 			nativeQuery = true)
-	public Object[] loadUserInfoAsRawData(@Param(value = "nationalId") String nationalId);
+	public Object loadUserInfoAsRawData(@Param(value = "nationalId") String nationalId);
 	
 }

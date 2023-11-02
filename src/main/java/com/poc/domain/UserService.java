@@ -43,9 +43,9 @@ public class UserService {
 		return personalImage;
 	}
 	
-	public UserInfo getUser(String nationalId) {
+	public UserInfo getUser(String nationalId) {		
 		
-		Object[] rawData = userInfoRepository.loadUserInfoAsRawData(nationalId);
+		Object[] rawData = (Object[]) userInfoRepository.loadUserInfoAsRawData(nationalId);
 		if (rawData == null) {
 			throw new NoDataFoundException();
 		}			
@@ -56,8 +56,7 @@ public class UserService {
 		userInfo.setNationalId((String) rawData[1]);				
 		userInfo.setCellPhone((String) rawData[2]);
 		userInfo.setEmail((String) rawData[3]);
-		userInfo.setMailingAddress((String) rawData[4]);
-		
+		userInfo.setMailingAddress((String) rawData[4]);		
 		
 		return userInfo;
 	}
