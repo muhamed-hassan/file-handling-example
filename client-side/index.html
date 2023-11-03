@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Main</title>
+
+  <script src="./models/UserInfoModel.js"></script>
+  <script src="./models/UserInfoCreateModel.js"></script>
+  <script src="./fragements/create-user.js"></script>
+  <script src="./fragements/upload-personal-image.js"></script>
+  <script src="./fragements/view-user-info.js"></script>
+  <script src="controller.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <a id="link1" href="#" onclick="displayCreateUserContent()">Create user</a> <br />
+
+    <a id="link2" href="#" onclick="displayUploadPersonalImageContent()">Upload personal image to a user</a> <br />
+
+    <a id="link3" href="#" onclick="displayViewUserInfoContent()">View user's info</a> <br />
+  </div>
+
+
+  <!-- start coding upload form -->
+
+  
+  <!-- SPA is adopted in multi-screens handling -->
+  <div id="replaceableContent"></div>
+</body>
+
+</html>
