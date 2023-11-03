@@ -96,6 +96,9 @@ function saveUser() {
     } catch (error) {
         alert("An error encountered during user creation, so please try again later.");
     }
+
+    // TODO: the below page is under construction
+    // go to user's info details page
 }
 
 function resetNewUserFields() {

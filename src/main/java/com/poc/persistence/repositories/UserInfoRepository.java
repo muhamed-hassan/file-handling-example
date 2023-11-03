@@ -24,7 +24,11 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
 			nativeQuery = true)
 	public byte[] loadPersonalImageAsRawData(@Param(value = "nationalId") String nationalId);
 	
-	@Query(value = "SELECT name, national_id, cell_phone, email, mailing_address "
+	@Query(value = "SELECT name, national_id, cell_phone, email, mailing_address, "
+			+ "            CASE "
+			+ "	               WHEN personal_image IS NOT NULL THEN 'T' "
+			+ "                ELSE 'F' "
+			+ "            END AS image_uploaded "
 			+ "FROM user_info "
 			+ "WHERE national_id = :nationalId", 
 			nativeQuery = true)

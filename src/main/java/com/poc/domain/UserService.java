@@ -1,5 +1,7 @@
 package com.poc.domain;
 
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,14 +51,15 @@ public class UserService {
 		if (rawData == null) {
 			throw new NoDataFoundException();
 		}			
-		
-		// name, national_id, cell_phone, email, mailing_address
+
+		// name, national_id, cell_phone, email, mailing_address, image_uploaded
 		UserInfo userInfo = new UserInfo();
 		userInfo.setName((String) rawData[0]);
 		userInfo.setNationalId((String) rawData[1]);				
 		userInfo.setCellPhone((String) rawData[2]);
 		userInfo.setEmail((String) rawData[3]);
 		userInfo.setMailingAddress((String) rawData[4]);		
+		userInfo.setImageUploaded(((String) rawData[5]).equals("T"));
 		
 		return userInfo;
 	}

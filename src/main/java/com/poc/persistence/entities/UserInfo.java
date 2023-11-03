@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @Table(name = "user_info")
@@ -36,6 +37,9 @@ public class UserInfo {
 
 	@Version
 	private int version;
+	
+	@Transient
+	private boolean imageUploaded;
 
 	public int getId() {
 		return id;
@@ -100,5 +104,13 @@ public class UserInfo {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+
+	public boolean isImageUploaded() {
+		return imageUploaded;
+	}
+
+	public void setImageUploaded(boolean imageUploaded) {
+		this.imageUploaded = imageUploaded;
+	}	
 	
 }

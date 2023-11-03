@@ -2,6 +2,7 @@ package com.poc.web.controllers;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -53,7 +54,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, value = "{nationalId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadPersonalImage(@PathVariable(value = "nationalId") String nationalId, 
 			@RequestParam(value = "personalImage") MultipartFile personalImage) throws IOException {
-
+		
 		validator.validate(nationalId);
 		
 		System.out.println("> nationalId: " + nationalId);
@@ -62,7 +63,7 @@ public class UserController {
 		System.out.println("  Size:" + personalImage.getSize() + " bytes"); // 174591 bytes
 		System.out.println("  Read bytes:" + personalImage.getBytes());
 		System.out.println("  Read byte[] length:" + personalImage.getBytes().length);
-		
+//		
 		userService.addPersonalImageOfUser(nationalId, personalImage.getBytes());
 		
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
@@ -80,7 +81,7 @@ public class UserController {
 		userInfoReadModel.setEmail(userInfo.getEmail());
 		userInfoReadModel.setMailingAddress(userInfo.getMailingAddress());
 		
-		if (userInfo.getPersonalImage() != null) {
+		if (userInfo.isImageUploaded()) {
 			// Check UserController::downloadImage() to know how the below embedded URL is called
 			userInfoReadModel.setFileUrl("http://localhost:8080/v1/users/" + userInfo.getNationalId() + "/images");
 		}		
