@@ -1,13 +1,13 @@
-function displayUploadPersonalImageContent() {
-    changePageTitle("Upload personal image");
+function displaySearchForUserContent() {
+    changePageTitle("Search for a user");
 
     var replaceableContent = getRefToReplaceableContent();
-    replaceableContent.innerHTML = getUploadPersonalImageContent();
+    replaceableContent.innerHTML = getSearchForUserContent();
 
     hideNavigationMenu();
 }
 
-function getUploadPersonalImageContent() {
+function getSearchForUserContent() {
     var content = 
     "<table> " +
         "<tr> " +
@@ -24,27 +24,14 @@ function getUploadPersonalImageContent() {
         "</tr> " +
 
         "<tr> " +
-            "<td> " +
-                "<label for=\"personalImage\">Personal image:</label> " +
-            "</td> " +
-            "<td> " +
-                "<input type=\"file\" id=\"personalImage\" name=\"personalImage\"> " + 
-            "</td> " +
-
-            "<td></td> " +
-            "<td></td> " +
-            "<td></td> " +
-        "</tr> " +
-
-        "<tr> " +
             "<td colspan=\"2\"> " +
-                "<button onclick=\"uploadPersonalImage()\">Upload</button> " +
+                "<button onclick=\"search()\">Search</button> " +
             "</td> " +
         
             "<td></td> " +
 
             "<td colspan=\"2\"> " +
-                "<button onclick=\"resetPersonalImageFields()\">Cancel</button> " +
+                "<button onclick=\"resetSearchForUserFields()\">Cancel</button> " +
             "</td> " +
         "</tr> " +
     "</table>" +
@@ -56,18 +43,10 @@ function getUploadPersonalImageContent() {
 /* ************************************************************************************************************************ */
 /* ************************************************************************************************************************ */
 
-function uploadPersonalImage() {
+function search() {
     var nationalId = extractWrittenValue("nationalId");
-    var personalImage = document.getElementById("personalImage").files[0];
 
     try {
-        var requestPayload = new FormData();
-        requestPayload.append("personalImage", personalImage);
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8080/v1/users/" + nationalId + "/images", false);
-        xhttp.send(requestPayload);
-        
-    
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", "http://localhost:8080/v1/users/" + nationalId, false);
         xhttp.setRequestHeader("Accept", "application/json");
@@ -77,12 +56,12 @@ function uploadPersonalImage() {
             displayViewUserInfoContent();
         } else {
             throw "any error pass throw here to be caught later";
-        } 
+        }        
     } catch (error) {
-        alert("An error encountered during uploading the image, so please try again later.");
-    }
+        alert("An error encountered during retrieving the user's info, so please try again later.");
+    }    
 }
 
-function resetPersonalImageFields() {
+function resetSearchForUserFields() {
     resetInputFields();
 }

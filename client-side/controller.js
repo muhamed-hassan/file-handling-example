@@ -12,6 +12,8 @@ function showNavigationMenu() {
     // reset the content of replaceableContent to select another one later
     var replaceableContent = getRefToReplaceableContent();
     replaceableContent.innerHTML = "";
+
+    changePageTitle("Main");
 }
 
 function hideNavigationMenu() {

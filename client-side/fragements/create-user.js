@@ -86,19 +86,28 @@ function saveUser() {
     userInfoCreateModel.cellPhone = extractWrittenValue("cellPhone");
     userInfoCreateModel.email = extractWrittenValue("email");
     userInfoCreateModel.mailingAddress = extractWrittenValue("mailingAddress");
-
-    var requestPayload = JSON.stringify(userInfoCreateModel); 
+    
     try {
+        var requestPayload = JSON.stringify(userInfoCreateModel); 
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "http://localhost:8080/v1/users", false);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(requestPayload);
+    
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "http://localhost:8080/v1/users/" + userInfoCreateModel.nationalId, false);
+        xhttp.setRequestHeader("Accept", "application/json");
+        xhttp.send();
+        if (xhttp.status == 200) {
+            localStorage.setItem("userInfo", xhttp.responseText);
+            displayViewUserInfoContent();
+        } else {
+            throw "any error pass throw here to be caught later";
+        } 
     } catch (error) {
         alert("An error encountered during user creation, so please try again later.");
     }
-
-    // TODO: the below page is under construction
-    // go to user's info details page
 }
 
 function resetNewUserFields() {
