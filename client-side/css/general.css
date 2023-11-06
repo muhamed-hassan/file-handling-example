@@ -1,0 +1,50 @@
+a {
+    color: rgb(105, 193, 255);
+    display: block;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  button {      
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    width: 250px;
+    cursor: pointer;
+  }
+
+  .green-button {
+    background-color: rgb(10, 163, 64);
+  }
+
+  .blue-button {
+    background-color: rgb(29, 120, 224);
+  }
+
+  .cancel-button {
+    background-color: rgb(234, 44, 34);
+  }
+
+  input[type=text], input[type=file] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  #userInfoTable {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #userInfoTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }

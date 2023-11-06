@@ -23,15 +23,15 @@ function getSearchForUserContent() {
             "<td></td> " +      
         "</tr> " +
 
-        "<tr> " +
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"search()\">Search</button> " +
+        "<tr style=\"height: 100px;\"> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"search()\" class=\"blue-button\">Search</button> " +
             "</td> " +
         
             "<td></td> " +
 
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"resetSearchForUserFields()\">Cancel</button> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"resetSearchForUserFields()\" class=\"cancel-button\">Cancel</button> " +
             "</td> " +
         "</tr> " +
     "</table>" +

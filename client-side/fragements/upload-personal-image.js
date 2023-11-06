@@ -36,15 +36,15 @@ function getUploadPersonalImageContent() {
             "<td></td> " +
         "</tr> " +
 
-        "<tr> " +
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"uploadPersonalImage()\">Upload</button> " +
+        "<tr style=\"height: 100px;\"> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"uploadPersonalImage()\" class=\"blue-button\">Upload</button> " +
             "</td> " +
         
             "<td></td> " +
 
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"resetPersonalImageFields()\">Cancel</button> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"resetPersonalImageFields()\" class=\"cancel-button\">Cancel</button> " +
             "</td> " +
         "</tr> " +
     "</table>" +

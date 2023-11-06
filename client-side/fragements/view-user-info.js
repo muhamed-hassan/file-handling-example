@@ -20,7 +20,7 @@ function getViewUserInfoContent() {
 
         var userInfoObject = JSON.parse(userInfo);
         var content = 
-        "<table> " +
+        "<table id=\"userInfoTable\"> " +
             "<tr> " +
                 "<td> " +
                     "<label>Name:</label> " +

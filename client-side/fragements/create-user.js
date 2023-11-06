@@ -59,15 +59,15 @@ function getCreateUserContent() {
             "<td></td> " +
         "</tr> " +
 
-        "<tr> " +
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"saveUser()\">Save</button> " +
+        "<tr style=\"height: 100px;\"> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"saveUser()\" class=\"green-button\">Save</button> " +
             "</td> " +
         
             "<td></td> " +
 
-            "<td colspan=\"2\"> " +
-                "<button onclick=\"resetNewUserFields()\">Cancel</button> " +
+            "<td colspan=\"2\" style=\"text-align: center;\"> " +
+                "<button onclick=\"resetNewUserFields()\" class=\"cancel-button\">Cancel</button> " +
             "</td> " +
         "</tr> " +
     "</table>" +
