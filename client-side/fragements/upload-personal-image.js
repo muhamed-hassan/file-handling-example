@@ -63,20 +63,16 @@ function uploadPersonalImage() {
     try {
         var requestPayload = new FormData();
         requestPayload.append("personalImage", personalImage);
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8080/v1/users/" + nationalId + "/images", false);
-        xhttp.send(requestPayload);
+        postFile("http://localhost:8080/v1/users/" + nationalId + "/images", requestPayload);
         
-    
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/v1/users/" + nationalId, false);
-        xhttp.setRequestHeader("Accept", "application/json");
-        xhttp.send();
-        if (xhttp.status == 200) {
-            localStorage.setItem("userInfo", xhttp.responseText);
+        var requestHeaders = new Map();
+        requestHeaders.set("Accept", "application/json");
+        var response = get("http://localhost:8080/v1/users/" + nationalId, requestHeaders);
+        if (response != "") {
+            localStorage.setItem("userInfo", response);
             displayViewUserInfoContent();
         } else {
-            throw "any error pass throw here to be caught later";
+            throw "error";
         } 
     } catch (error) {
         alert("An error encountered during uploading the image, so please try again later.");

@@ -46,17 +46,16 @@ function getSearchForUserContent() {
 function search() {
     var nationalId = extractWrittenValue("nationalId");
 
-    try {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/v1/users/" + nationalId, false);
-        xhttp.setRequestHeader("Accept", "application/json");
-        xhttp.send();
-        if (xhttp.status == 200) {
-            localStorage.setItem("userInfo", xhttp.responseText);
+    try {       
+        var requestHeaders = new Map();
+        requestHeaders.set("Accept", "application/json");
+        var response = get("http://localhost:8080/v1/users/" + nationalId, requestHeaders);
+        if (response != "") {
+            localStorage.setItem("userInfo", response);
             displayViewUserInfoContent();
         } else {
-            throw "any error pass throw here to be caught later";
-        }        
+            throw "error";
+        } 
     } catch (error) {
         alert("An error encountered during retrieving the user's info, so please try again later.");
     }    

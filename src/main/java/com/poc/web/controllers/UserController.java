@@ -1,12 +1,17 @@
 package com.poc.web.controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +56,7 @@ public class UserController {
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 	
+	// TODO: clean debugging lines later
 	@RequestMapping(method = RequestMethod.POST, value = "{nationalId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadPersonalImage(@PathVariable(value = "nationalId") String nationalId, 
 			@RequestParam(value = "personalImage") MultipartFile personalImage) throws IOException {
@@ -63,7 +69,13 @@ public class UserController {
 		System.out.println("  Size:" + personalImage.getSize() + " bytes"); // 174591 bytes
 		System.out.println("  Read bytes:" + personalImage.getBytes());
 		System.out.println("  Read byte[] length:" + personalImage.getBytes().length);
-//		
+		
+		// debugging code to check the file's contents on the disk before storing it in db
+		/*
+		OutputStream outputStream = new FileOutputStream("D:\\tmp\\" + personalImage.getOriginalFilename());
+		outputStream.write(personalImage.getBytes());
+		*/
+		
 		userService.addPersonalImageOfUser(nationalId, personalImage.getBytes());
 		
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
@@ -89,27 +101,18 @@ public class UserController {
 		return new ResponseEntity<UserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
 	}
 	
-	// TODO
-	@RequestMapping(method = RequestMethod.GET, value = "{nationalId}/images", 
-				produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
-	public ResponseEntity<Resource> downloadImage(@PathVariable String nationalId) throws IOException {
+	// TODO: in progress
+	@RequestMapping(method = RequestMethod.GET, value = "{nationalId}/images")
+	public ResponseEntity<byte[]> downloadImage(@PathVariable String nationalId) throws IOException {
 				
 		byte[] personalImage = userService.getPersonalImage(nationalId);
-//			OutputStream outputStream = new ByteArrayOutputStream();
-//			outputStream.write(personalImage);
-//			outputStream.close();
 		
-//			OutputStream outputStream = response.getOutputStream();
-//			outputStream.write(personalImage);
-//			outputStream.flush();
-//			outputStream.close();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		headers.setContentLength(personalImage.length);
 		
-		System.out.println(">>> " + personalImage.length);
 		
-		ByteArrayResource byteArrayResource = new ByteArrayResource(personalImage);
-
-		
-		return new ResponseEntity<Resource>(byteArrayResource, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(personalImage, headers, HttpStatus.OK);
 	}
 
 }

@@ -88,22 +88,21 @@ function saveUser() {
     userInfoCreateModel.mailingAddress = extractWrittenValue("mailingAddress");
     
     try {
-        var requestPayload = JSON.stringify(userInfoCreateModel); 
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8080/v1/users", false);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(requestPayload);
-    
+        var requestHeaders = new Map();
 
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/v1/users/" + userInfoCreateModel.nationalId, false);
-        xhttp.setRequestHeader("Accept", "application/json");
-        xhttp.send();
-        if (xhttp.status == 200) {
-            localStorage.setItem("userInfo", xhttp.responseText);
+        requestHeaders.set("Content-type", "application/json");
+        var requestPayload = JSON.stringify(userInfoCreateModel); 
+        postData("http://localhost:8080/v1/users", requestHeaders, requestPayload);
+    
+        requestHeaders.clear();
+
+        requestHeaders.set("Accept", "application/json");
+        var response = get("http://localhost:8080/v1/users/" + userInfoCreateModel.nationalId, requestHeaders);
+        if (response != "") {
+            localStorage.setItem("userInfo", response);
             displayViewUserInfoContent();
         } else {
-            throw "any error pass throw here to be caught later";
+            throw "error";
         } 
     } catch (error) {
         alert("An error encountered during user creation, so please try again later.");
