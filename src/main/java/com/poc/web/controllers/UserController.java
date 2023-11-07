@@ -1,16 +1,9 @@
 package com.poc.web.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,7 +49,7 @@ public class UserController {
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 	
-	// TODO: clean debugging lines later
+	// TODO: clean debugging lines later when downloadImage() get completed
 	@RequestMapping(method = RequestMethod.POST, value = "{nationalId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadPersonalImage(@PathVariable(value = "nationalId") String nationalId, 
 			@RequestParam(value = "personalImage") MultipartFile personalImage) throws IOException {

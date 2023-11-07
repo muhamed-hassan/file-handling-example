@@ -1,11 +1,3 @@
-function test() {    
-    console.log("some dummy text ...");
-}
-
-function test2() {    
-    console.log("text ...");
-}
-
 function showNavigationMenu() {
     document.getElementById("main").style.display = "block";
 

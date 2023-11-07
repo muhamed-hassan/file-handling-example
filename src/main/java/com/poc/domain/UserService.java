@@ -1,7 +1,5 @@
 package com.poc.domain;
 
-import java.math.BigInteger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,22 +24,12 @@ public class UserService {
 	public void addPersonalImageOfUser(String nationalId, byte[] personalImage) {
 		
 		int affectedRecords = userInfoRepository.updatePersonalImage(nationalId, personalImage);
-		
-		
-		System.out.println(">>> " + affectedRecords);
+		System.out.println(">>> affectedRecords:: " + affectedRecords);
 	}
 	
 	public byte[] getPersonalImage(String nationalId) {
 		
-		byte[] personalImage = null;
-		try {
-			personalImage = userInfoRepository.loadPersonalImageAsRawData(nationalId);
-		} catch (Exception e) {
-			System.out.println("\n>>>>>>>>>>>>>>>>>>>");
-			e.printStackTrace();
-			System.out.println(">>>>>>>>>>>>>>>>>>>\n");
-		}
-		
+		byte[] personalImage = userInfoRepository.loadPersonalImageAsRawData(nationalId);		
 		return personalImage;
 	}
 	
